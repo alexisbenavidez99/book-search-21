@@ -1,6 +1,6 @@
-const { gpl } = require('apollo-server-express');
+const { gql } = require('apollo-server-express');
 
-const typeDefs = gpl`
+const typeDefs = gql`
 type Query {
   me: User
 }
@@ -22,7 +22,7 @@ type User {
 
 type Book {
     bookId: Int!
-    authors: authors[String!]
+    authors: [String]
     description: String!
     title: String!
     image: String
