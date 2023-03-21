@@ -11,21 +11,21 @@ const resolvers = {
             const user = await User.create(args);
             return user;
         },
-        saveBook: async (parent, { user, body }) => {
+        saveBook: async (parent, { user, book }) => {
             const updatedUser = await User.findOneAndUpdate(
                 { _id: user._id },
-                { $addToSet: { savedBooks: body } },
+                { $addToSet: { savedBooks: book } },
                 { new: true, runValidators: true }
               );
               return updatedUser;
         },
-        login: async (parent, args, { body }) => {
-            const user = await User.findOne({ $or: [{ username: body.username }, { email: body.email }] });
+        login: async (parent, { username, email }) => {
+            const user = await User.findOne({ $or: [{ username: username }, { email: email }] });
         },
-        removeBook: async (parent, { user, params }) => {
+        removeBook: async (parent, { user, bookId }) => {
             const updatedUser = await User.findOneAndUpdate(
                 { _id: user._id },
-                { $pull: { savedBooks: { bookId: params.bookId } } },
+                { $pull: { savedBooks: { bookId: bookId } } },
                 { new: true }
               );
               return updatedUser;

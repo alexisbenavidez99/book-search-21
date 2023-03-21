@@ -13,7 +13,7 @@ const { authMiddleware } = require('./utils/auth');
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: authMiddleware
+  // context: authMiddleware
 });
 
 app.use(express.urlencoded({ extended: true }));
