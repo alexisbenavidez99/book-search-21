@@ -3,40 +3,61 @@ import { gpl } from '@apollo/client';
 export const LOGIN_USER = gpl`
   mutation loginUser($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-        email
-        password
+      token
+      user {
+        _id
+        username
+      }
     }
   }
 `;
 
 export const ADD_USER = gpl`
-  mutation addUser($_id: String!, $username: String!, $email: String!, $password: String!) {
-    addUser(_id: $_id, username: $username, email: $email, password: $password) {
+  mutation addUser($username: String!, $email: String!, $password: String!) {
+    addUser(username: $username, email: $email, password: $password) {
+      token
+      user {
         _id
         username
-        email
-        password
+      }
     }
   }
 `;
 
 export const SAVE_BOOK = gpl`
-  mutation saveBook($authors: [Authors], $description: String!, $title: String!, $bookId: Int!, $image: String, $link: String) {
-    saveBook(authors: $[Authors], description: $description, title: $title, bookId: $bookId, image: $image: link: $link) {
+  mutation saveBook($bookData: BookInput!) {
+    saveBook(bookData: $bookData) {
+      _id
+      username
+      email
+      bookCount
+      savedBooks {
+       bookId
        authors
        description
        title
-       bookId
        image
-       link 
+       link
+      }
     }
   }
 `;
 
 export const REMOVE_BOOK = gpl`
-  mutation removeBook($bookId: Int!) {
+  mutation removeBook($bookId: ID!) {
     removeBook(bookId: $bookId) {
-        bookId
+      _id
+      username
+      email
+      bookCount
+      savedBooks {
+       bookId
+       authors
+       description
+       title
+       image
+       link
+      }
     }
   }
 `;
