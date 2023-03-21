@@ -9,9 +9,11 @@ const PORT = process.env.PORT || 3001;
 
 // Adding Apollo server and GraphQL schema
 const { typeDefs, resolvers } = require('./schemas');
+const { authMiddleware } = require('./utils/auth');
 const server = new ApolloServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context: authMiddleware
 });
 
 app.use(express.urlencoded({ extended: true }));
