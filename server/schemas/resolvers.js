@@ -8,6 +8,7 @@ const resolvers = {
     },
     Mutation: {
         addUser: async (parent, args) => {
+            console.log(args);
             const user = await User.create(args);
             return user;
         },
@@ -21,6 +22,7 @@ const resolvers = {
         },
         login: async (parent, { username, email }) => {
             const user = await User.findOne({ $or: [{ username: username }, { email: email }] });
+            return user;
         },
         removeBook: async (parent, { user, bookId }) => {
             const updatedUser = await User.findOneAndUpdate(
