@@ -12,10 +12,10 @@ const resolvers = {
             const user = await User.create(args);
             return user;
         },
-        saveBook: async (parent, { user, book }) => {
+        saveBook: async (parent, { user, bookData }) => {
             const updatedUser = await User.findOneAndUpdate(
                 { _id: user._id },
-                { $addToSet: { savedBooks: book } },
+                { $addToSet: { savedBooks: bookData } },
                 { new: true, runValidators: true }
               );
               return updatedUser;
